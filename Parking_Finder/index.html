@@ -22,6 +22,9 @@
   </head>
   <body>
     <h1> Find Parking </h1>
+    <div id="floating-panel">
+      <input onclick="clearMarkers();" type=button value="Remove Markers">
+    </div>
     <div id="map"></div>
     <script>
       function initMap() {
@@ -68,6 +71,24 @@
         marker.addListener('click', function(){
           infoWindow.open(map, marker);
         });
+
+        // Removes the markers from the map, but keeps them in the array.
+        function clearMarkers() {
+          marker2.setMap(null);
+          // Set a map marker for your location
+          var marker = new google.maps.Marker({
+            position:{lat:38.903745, lng:-77.045224},
+            map:map
+          });
+
+          // Add title for the marker when clicked
+          var infoWindow = new google.maps.InfoWindow({
+            content:'<h3> Your Location </h3>'
+          });
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+        }
 
       }
     </script>

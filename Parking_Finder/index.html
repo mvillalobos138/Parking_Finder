@@ -29,8 +29,21 @@
     <div id="map"></div>
     <script>
       function initMap() {
+        var points = [
+          [38.90473750454177, -77.04535945155527],
+          [38.90452042797257, -77.04552038409616],
+          [38.90452042797257, -77.04552038409616],
+          [38.90436179467534, -77.04546796312616],
+          [38.90436179467534, -77.04546796312616],
+          [38.90399443199458, -77.04487406004944],
+          [38.90380240074584, -77.04489551772156],
+          [38.90366046427164, -77.04478822936096],
+          [38.90346843211962, -77.04513155211487],
+          [38.90375230555207, -77.04559289206543]
+          ];
 
-        var jsondata = {};
+        // var map, path = new google.maps.MVCArray(),
+        // service = new google.maps.DirectionsService(), poly;
 
         // Map starting location
         var options = {
@@ -47,15 +60,25 @@
           placeMarker(event.latLng);
         });
 
+        // Plot test points
+        for (i = 0; i < points.length; i++) {  
+          var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(points[i][0], points[i][1]),
+          map: map
+        });}
+
         // Place a marker on the map where click occurs
         function placeMarker(location) {
+          console.log(location.lat(), location.lng());
           var marker2 = new google.maps.Marker({
             position: location, 
             map: map
-            });
+            });// markers.Add(marker2);
+
           // Add title for the marker when clicked
           var infoWindow2 = new google.maps.InfoWindow({
-            content:'spot'
+            content: ''
+
             });
             marker2.addListener('click', function(){
             infoWindow2.open(map, marker2);
@@ -94,32 +117,66 @@
           });
         }
 
-        
+
         // var roadSeg = [
-        //   {lat: 37.772, lng: -122.214},
-        //   {lat: 21.291, lng: -157.821},
-        //   {lat: -18.142, lng: 178.431},
-        //   {lat: -27.467, lng: 153.027}
+        //   {lat:38.90552608029149, lng:-77.04799583029151},
+        //   {lat:38.9028281197085, lng:-77.04529786970851}
+        // ];
+
+        // var roadSeg = [
+        //   {lat:38.905522314292774, lng:-77.04664691188242},
+        //   {lat:38.903819099135916, lng:-77.04664691188242}
         // ];
 
         // // Red indicates no parking, Green indicates available parking
         // var hasParking = new google.maps.Polyline({
-        //   path: flightPlanCoordinates,
+        //   path: roadSeg,
         //   geodesic: true,
         //   strokeColor: '#FF0000',
         //   strokeOpacity: 1.0,
         //   strokeWeight: 2
         // });
 
-        // flightPath.setMap(map);
+        // hasParking.setMap(map);
 
-        // function findNearestRoad() {
-        //   jsondata = $.getJSON('https://roads.googleapis.com/v1/nearestRoads?points='+38.903745+','+'-'+77.045224 +'&key=AIzaSyAQa2-eIIEptepomNyFNYbHwh0_pb_WTDk')
-        // }
+
+      //   var myOptions = {
+      //   zoom: 17,
+      //   center: new google.maps.LatLng(38.90375484899585, -77.04595934261647),
+      //   mapTypeId: google.maps.MapTypeId.HYBRID,
+      //   mapTypeControlOptions: {
+      //   mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.NORMAL,
+      //     google.maps.MapTypeId.SATELLITE]
+      //   },
+      //   disableDoubleClickZoom: true,
+      //   scrollwheel: false,
+      //   draggableCursor: "crosshair"
+      //   }
+
+      //   map = new google.maps.Map(document.getElementById("map"), myOptions);
+      //   poly = new google.maps.Polyline({ map: map });
+      //   google.maps.event.addListener(map, "click", function(evt) {
+      //   if (path.getLength() === 0) {
+      //     path.push(evt.latLng);
+      //     poly.setPath(path);
+      //   } else {
+      //     service.route({
+      //     origin: path.getAt(path.getLength() - 1),
+      //     destination: evt.latLng,
+      //     travelMode: google.maps.DirectionsTravelMode.DRIVING
+      //   }, function(result, status) {
+      //   if (status == google.maps.DirectionsStatus.OK) {
+      //     for (var i = 0, len = result.routes[0].overview_path.length;
+      //         i < len; i++) {
+      //       path.push(result.routes[0].overview_path[i]);
+      //         }
+      //       }
+      //     });
+      //   }
+      // });
 
       }
     </script>
-    <script> document.write(jsondata) </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQa2-eIIEptepomNyFNYbHwh0_pb_WTDk&callback=initMap"
     async defer></script>

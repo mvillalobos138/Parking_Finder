@@ -24,26 +24,129 @@
     <h1> Find Parking </h1>
     <div id="floating-panel">
       <input onclick="clearMarkers();" type=button value="Remove Markers">
-      <input onclick="findNearestRoad();" type=button value="Find Nearest Road">
+      <input onclick="clearMarkers();" type=button value="Spots Near Me">
     </div>
     <div id="map"></div>
     <script>
       function initMap() {
-        var points = [
-          [38.90473750454177, -77.04535945155527],
-          [38.90452042797257, -77.04552038409616],
-          [38.90452042797257, -77.04552038409616],
-          [38.90436179467534, -77.04546796312616],
-          [38.90436179467534, -77.04546796312616],
-          [38.90399443199458, -77.04487406004944],
-          [38.90380240074584, -77.04489551772156],
-          [38.90366046427164, -77.04478822936096],
-          [38.90346843211962, -77.04513155211487],
-          [38.90375230555207, -77.04559289206543]
-          ];
 
-        // var map, path = new google.maps.MVCArray(),
-        // service = new google.maps.DirectionsService(), poly;
+        var marker2;
+
+        //[0] == lat, [1] == long
+        var points = [
+          [38.90473629564741,-77.044917976942926],
+          [38.904531283087685,-77.0449166017897],
+          [38.904531283087685,-77.0449166017897],
+          [38.904371792340349,-77.044911867540492],
+          [38.904371792340349,-77.044911867540492],
+          [38.903993953981278,-77.0449006520472],
+          [38.903802410655416,-77.04489496645283],
+          [38.903661129806714,-77.044894049146464],
+          [38.903466951411055,-77.0448960655934],
+          [38.903743840122885,-77.045592896184459],
+          [38.905656180371061,-77.045895041651036],
+          [38.905655687406231,-77.045809116829432],
+          [38.90565531874762,-77.045744866021124],
+          [38.905655025874914,-77.045693827755059],
+          [38.905654687257055,-77.045634822413746],
+          [38.9056531473699,-77.045366556963941],
+          [38.905652500577361,-77.045253910403],
+          [38.905652130819362,-77.045189521147918],
+          [38.905651884370165,-77.045146608172544],
+          [38.905652014885611,-77.043960233248569],
+          [38.905652342595943,-77.043917374783589],
+          [38.905653204423054,-77.0438046539097],
+          [38.905653778108544,-77.043729612055046],
+          [38.905654373052116,-77.0436517828645],
+          [38.9056546075765,-77.043621101050192],
+          [38.905653807230145,-77.043725802591],
+          [38.905653314957142,-77.043790195809947],
+          [38.905652351416059,-77.04391622124632],
+          [38.905651572523979,-77.044018082741516],
+          [38.905652721330824,-77.043867840693309],
+          [38.905656067591643,-77.043127354009243],
+          [38.905656122780208,-77.043020063998341],
+          [38.905656154473185,-77.042958364414446],
+          [38.905656210879826,-77.042848395754291],
+          [38.905656258953719,-77.042754513267212],
+          [38.905656293243332,-77.04268745989441],
+          [38.905656338444508,-77.042598954150264],
+          [38.905656382218311,-77.0425131182958],
+          [38.90565642456253,-77.042429968169742],
+          [38.90393955586341,-77.043458730573477],
+          [38.904039744220611,-77.043459265679729],
+          [38.905418876598418,-77.043454923687435],
+          [38.905352030575671,-77.043455748230656],
+          [38.9052872715536,-77.043456547029336],
+          [38.905166261858085,-77.043458039672785],
+          [38.905093274586704,-77.0434589399616],
+          [38.905024401284344,-77.04345978950343],
+          [38.904940858306354,-77.0434608199913],
+          [38.904871984856122,-77.0434616695313],
+          [38.904778086439734,-77.043462827746509],
+          [38.904740221231314,-77.043499543099387],
+          [38.904740221231314,-77.043499543099387],
+          [38.904628177730324,-77.043461950164811],
+          [38.904557245057795,-77.043461653665972],
+          [38.904472842396032,-77.043461300863314],
+          [38.904389365639787,-77.043460951931763],
+          [38.904351788165293,-77.04346079485876],
+          [38.9035174619118,-77.0416883110311],
+          [38.903454782521564,-77.04168917792181],
+          [38.903400428888737,-77.041689929661459],
+          [38.903318333037731,-77.041690715019811],
+          [38.9032432194169,-77.041690381990421],
+          [38.903176462088943,-77.041690086010718],
+          [38.903101297915356,-77.041689752758515],
+          [38.903039983542136,-77.041689480912126],
+          [38.902960644627093,-77.041689129151948],
+          [38.902868796215664,-77.041688721930143],
+          [38.903745031767116,-77.046358917793356],
+          [38.903744654167319,-77.0461711919857],
+          [38.903744427499518,-77.046058574564668],
+          [38.903744162807563,-77.0459271332324],
+          [38.90374396818266,-77.045830532613948],
+          [38.903743861173879,-77.045664410115577],
+          [38.903743845388632,-77.0456107709666],
+          [38.903743817701589,-77.045516889516264],
+          [38.903743784067139,-77.045447004150049],
+          [38.902639319748118,-77.045151445094845],
+          [38.902640483283506,-77.045245383956811],
+          [38.902641014848719,-77.045340054738915],
+          [38.902639813946116,-77.045404455011834],
+          [38.90263841185002,-77.045479642195119],
+          [38.902636965703685,-77.0455571888544],
+          [38.90263526115038,-77.0456485885265],
+          [38.902632808973344,-77.045780069742733],
+          [38.9026313078366,-77.045860554024372],
+          [38.902628655989616,-77.04614171510265],
+          [38.902629342454389,-77.046187450807963],
+          [38.902630548934269,-77.046267835394929],
+          [38.9026317538071,-77.0463481165767],
+          [38.903744656793279,-77.044685530315007],
+          [38.903745551397641,-77.044625873326737],
+          [38.903747016065175,-77.044542585488671],
+          [38.903748097681458,-77.044481077571817],
+          [38.903749889028852,-77.0443792055694],
+          [38.903703328302221,-77.044147456716175],
+          [38.903703328302221,-77.044147456716175],
+          [38.903752622214377,-77.044017330613684],
+          [38.903751728586421,-77.043934272116971],
+          [38.903751092999016,-77.043875200599956],
+          [38.90375041469607,-77.043812162150886],
+          [38.903749620728689,-77.043738378367578],
+          [38.902636960306431,-77.04460366308723],
+          [38.902637160064515,-77.044525862227857],
+          [38.90263731151353,-77.044466863160508],
+          [38.902637476812323,-77.044402455510522],
+          [38.902637752035041,-77.044295186085051],
+          [38.902637972178837,-77.044209356392543],
+          [38.902638150976735,-77.0441396286036],
+          [38.902638536544046,-77.044053376094013],
+          [38.902639461065419,-77.043943447418414],
+          [38.902640408278913,-77.0438308078592],
+          [38.902640342047057,-77.043737622675934]
+        ];
 
         // Map starting location
         var options = {
@@ -51,39 +154,9 @@
           zoom: 17
         }
 
-        // Setup map
+        // Set up map
         var map = new 
         google.maps.Map(document.getElementById('map'), options);
-
-        // Listen for map clicks
-        google.maps.event.addListener(map, 'click', function(event) {
-          placeMarker(event.latLng);
-        });
-
-        // Plot test points
-        for (i = 0; i < points.length; i++) {  
-          var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(points[i][0], points[i][1]),
-          map: map
-        });}
-
-        // Place a marker on the map where click occurs
-        function placeMarker(location) {
-          console.log(location.lat(), location.lng());
-          var marker2 = new google.maps.Marker({
-            position: location, 
-            map: map
-            });// markers.Add(marker2);
-
-          // Add title for the marker when clicked
-          var infoWindow2 = new google.maps.InfoWindow({
-            content: ''
-
-            });
-            marker2.addListener('click', function(){
-            infoWindow2.open(map, marker2);
-            });
-        }
 
         // Set a map marker for your location
         var marker = new google.maps.Marker({
@@ -99,85 +172,69 @@
           infoWindow.open(map, marker);
         });
 
-        // Removes the markers from the map
-        function clearMarkers() {
-          marker2.setMap(null);
-          // Set a map marker for your location
-          var marker = new google.maps.Marker({
-            position:{lat:38.903745, lng:-77.045224},
-            map:map
-          });
+        // Listen for map clicks
+        google.maps.event.addListener(map, 'click', function(event) {
+          placeMarker(event.latLng);
+        });
+
+        // Place a marker on the map where click occurs
+        function placeMarker(location) {
+          
+          // Place
+          var marker2 = new google.maps.Marker({
+            position: location, 
+            map: map
+            });
+
+          // Find the 5 closest points to the marker
+          for (i = 0; i < points.length; i++) {  
+            var lat1 = location.lat();
+            var lng1 = location.lng();
+            var count = 0;
+            if ((points[i][0] < lat1 + 0.0005) && (points[i][0] > lat1 - 0.0005) && (count < 5)) {
+              if ((points[i][1] < lng1 + 0.0005) && (points[i][1] > lng1 - 0.0005)) {
+                var rand = Math.round((Math.random()));
+                count += 1;
+                if (rand != 0) {
+                  var marker3 = new google.maps.Marker({
+                  position: new google.maps.LatLng(points[i][0], points[i][1]), 
+                  map: map
+                  });
+                }
+              }
+            }
+          } // End for
 
           // Add title for the marker when clicked
-          var infoWindow = new google.maps.InfoWindow({
-            content:'<h3> Your Location </h3>'
-          });
-          marker.addListener('click', function(){
-            infoWindow.open(map, marker);
-          });
-        }
+          var infoWindow2 = new google.maps.InfoWindow({
+            content: '<h4>Open</h4>'
+            });
+            marker2.addListener('click', function(){
+            infoWindow2.open(map, marker2);
+            });
+        } // End place marker
 
+        // Removes the markers from the map
+        // function clearMarkers() {
+        //   marker2.setMap(null);
+        //   // Set a map marker for your location
+        //   var marker = new google.maps.Marker({
+        //     position:{lat:38.903745, lng:-77.045224},
+        //     map:map
+        //   });
 
-        // var roadSeg = [
-        //   {lat:38.90552608029149, lng:-77.04799583029151},
-        //   {lat:38.9028281197085, lng:-77.04529786970851}
-        // ];
+        //   // Add title for the marker when clicked
+        //   var infoWindow = new google.maps.InfoWindow({
+        //     content:'<h3> Your Location </h3>'
+        //   });
+        //   marker.addListener('click', function(){
+        //     infoWindow.open(map, marker);
+        //   });
+        // }
 
-        // var roadSeg = [
-        //   {lat:38.905522314292774, lng:-77.04664691188242},
-        //   {lat:38.903819099135916, lng:-77.04664691188242}
-        // ];
-
-        // // Red indicates no parking, Green indicates available parking
-        // var hasParking = new google.maps.Polyline({
-        //   path: roadSeg,
-        //   geodesic: true,
-        //   strokeColor: '#FF0000',
-        //   strokeOpacity: 1.0,
-        //   strokeWeight: 2
-        // });
-
-        // hasParking.setMap(map);
-
-
-      //   var myOptions = {
-      //   zoom: 17,
-      //   center: new google.maps.LatLng(38.90375484899585, -77.04595934261647),
-      //   mapTypeId: google.maps.MapTypeId.HYBRID,
-      //   mapTypeControlOptions: {
-      //   mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.NORMAL,
-      //     google.maps.MapTypeId.SATELLITE]
-      //   },
-      //   disableDoubleClickZoom: true,
-      //   scrollwheel: false,
-      //   draggableCursor: "crosshair"
-      //   }
-
-      //   map = new google.maps.Map(document.getElementById("map"), myOptions);
-      //   poly = new google.maps.Polyline({ map: map });
-      //   google.maps.event.addListener(map, "click", function(evt) {
-      //   if (path.getLength() === 0) {
-      //     path.push(evt.latLng);
-      //     poly.setPath(path);
-      //   } else {
-      //     service.route({
-      //     origin: path.getAt(path.getLength() - 1),
-      //     destination: evt.latLng,
-      //     travelMode: google.maps.DirectionsTravelMode.DRIVING
-      //   }, function(result, status) {
-      //   if (status == google.maps.DirectionsStatus.OK) {
-      //     for (var i = 0, len = result.routes[0].overview_path.length;
-      //         i < len; i++) {
-      //       path.push(result.routes[0].overview_path[i]);
-      //         }
-      //       }
-      //     });
-      //   }
-      // });
 
       }
     </script>
-
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQa2-eIIEptepomNyFNYbHwh0_pb_WTDk&callback=initMap"
     async defer></script>
   </body>

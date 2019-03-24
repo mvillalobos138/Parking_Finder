@@ -23,8 +23,8 @@
   <body>
     <h1> Find Parking </h1>
     <div id="floating-panel">
-      <input onclick="clearMarkers();" type=button value="Remove Markers">
-      <input onclick="nearMe();" type=button value="Spots Near Me">
+      <input onclick="clearMarkers()" type=button value="Remove Markers">
+      <input onclick="refreshPage()" type=button value="Spots Near Me">
     </div>
     <div id="map"></div>
     <script>
@@ -215,6 +215,7 @@
         } // End place marker
 
         function nearMe() {
+          alert('hi');
           for (i = 0; i < points.length; i++) { 
             var lat1 = 38.903745;
             var lng1 = -77.045224;
@@ -253,6 +254,11 @@
         }
 
       }
+    </script>
+    <script>
+    function refreshPage(){
+    window.location.reload();
+    } 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQa2-eIIEptepomNyFNYbHwh0_pb_WTDk&callback=initMap"
     async defer></script>
